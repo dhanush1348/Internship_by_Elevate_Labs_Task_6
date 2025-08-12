@@ -4,169 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Contact Form — Validation Demo</title>
-
-  <style>
-    :root{
-      --bg:#f7f8fb;
-      --card:#ffffff;
-      --accent:#5b21b6;
-      --muted:#6b7280;
-      --danger:#ef4444;
-      --success:#10b981;
-      --shadow: 0 6px 18px rgba(15,23,42,0.08);
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-
-    html,body{height:100%}
-    body{
-      margin:0;
-      background:linear-gradient(180deg, #f6f7fb 0%, #ffffff 100%);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:32px;
-    }
-
-    .container{
-      width:100%;
-      max-width:820px;
-      background:var(--card);
-      border-radius:12px;
-      box-shadow:var(--shadow);
-      padding:28px;
-    }
-
-    header{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      margin-bottom:18px;
-    }
-    .logo{
-      width:64px;
-      height:64px;
-      border-radius:8px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg,#7c3aed,#06b6d4);
-      color:white;
-      font-weight:700;
-      font-size:18px;
-      box-shadow:0 6px 12px rgba(99,102,241,0.15);
-    }
-    h1{margin:0;font-size:20px;letter-spacing:0.6px}
-    p.lead{margin:6px 0 0;color:var(--muted);font-size:14px}
-
-    form{
-      margin-top:18px;
-      display:grid;
-      gap:16px;
-    }
-
-    .row{
-      display:flex;
-      gap:16px;
-      flex-wrap:wrap;
-    }
-
-    label{
-      display:block;
-      font-size:13px;
-      color:#111827;
-      margin-bottom:8px;
-      font-weight:600;
-    }
-
-    input[type="text"], input[type="email"], textarea{
-      width:100%;
-      font-size:14px;
-      padding:12px 14px;
-      border-radius:8px;
-      border:1px solid #e6e7eb;
-      outline:none;
-      box-sizing:border-box;
-      transition:box-shadow .15s, border-color .15s;
-      background: #fff;
-      resize:vertical;
-    }
-    input:focus, textarea:focus{
-      border-color: rgba(99,102,241,0.9);
-      box-shadow: 0 6px 18px rgba(99,102,241,0.08);
-    }
-
-    .field{
-      min-width:0;
-    }
-
-    .col-2{flex:1 1 48%}
-    .col-1{flex:1 1 100%}
-
-    .error{
-      color:var(--danger);
-      font-size:13px;
-      margin-top:6px;
-      display:block;
-    }
-    .help{
-      color:var(--muted);
-      font-size:13px;
-      margin-top:6px;
-    }
-
-    .actions{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin-top:6px;
-    }
-
-    button{
-      background:var(--accent);
-      color:white;
-      padding:10px 16px;
-      border-radius:10px;
-      border:0;
-      cursor:pointer;
-      font-weight:600;
-      box-shadow: 0 6px 18px rgba(59,130,246,0.08);
-    }
-    button[disabled]{opacity:.6;cursor:not-allowed}
-
-    .result{
-      margin-top:12px;
-      padding:12px 14px;
-      border-radius:10px;
-      display:none;
-      align-items:center;
-      gap:10px;
-      font-weight:600;
-    }
-    .result.success{
-      background: rgba(16,185,129,0.12);
-      color: var(--success);
-      border:1px solid rgba(16,185,129,0.18);
-      display:flex;
-    }
-    .result.error{
-      background: rgba(239,68,68,0.08);
-      color: var(--danger);
-      border:1px solid rgba(239,68,68,0.12);
-      display:flex;
-    }
-
-    @media (max-width:560px){
-      .col-2{flex:1 1 100%}
-    }
-
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container" role="main">
+  <div class="container">
     <header>
       <div class="logo">WL</div>
       <div>
         <h1>Contact Us</h1>
-        <p class="lead">Build a contact form with client-side validation (name, email, message).</p>
+        <p class="lead">Fill the form below. All fields are required.</p>
       </div>
     </header>
 
@@ -174,128 +20,46 @@
       <div class="row">
         <div class="field col-2">
           <label for="name">Name</label>
-          <input id="name" name="name" type="text" placeholder="Your full name" aria-describedby="nameHelp nameErr" />
-          <span id="nameErr" class="error" aria-live="polite"></span>
-          <div id="nameHelp" class="help">Enter at least 2 characters (no numbers preferred).</div>
+          <input id="name" name="name" type="text" placeholder="Your full name" />
+          <span class="error" id="nameErr"></span>
         </div>
 
         <div class="field col-2">
           <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" aria-describedby="emailErr" />
-          <span id="emailErr" class="error" aria-live="polite"></span>
+          <input id="email" name="email" type="email" placeholder="you@example.com" />
+          <span class="error" id="emailErr"></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field col-2">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="text" placeholder="e.g., 9876543210" />
+          <span class="error" id="phoneErr"></span>
+        </div>
+
+        <div class="field col-2">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" placeholder="Message subject" />
+          <span class="error" id="subjectErr"></span>
         </div>
       </div>
 
       <div class="row">
         <div class="field col-1">
           <label for="message">Message</label>
-          <textarea id="message" name="message" rows="6" placeholder="Write your message..." aria-describedby="messageErr"></textarea>
-          <span id="messageErr" class="error" aria-live="polite"></span>
+          <textarea id="message" name="message" rows="6" placeholder="Write your message..."></textarea>
+          <span class="error" id="messageErr"></span>
         </div>
       </div>
 
       <div class="actions">
         <button type="submit" id="submitBtn">Send message</button>
-        <div id="formResult" class="result" role="status" aria-live="polite"></div>
+        <div id="formResult" class="result"></div>
       </div>
     </form>
   </div>
 
-  <script>
-    // Validation logic
-    (function(){
-      const form = document.getElementById('contactForm');
-      const nameInput = document.getElementById('name');
-      const emailInput = document.getElementById('email');
-      const messageInput = document.getElementById('message');
-      const submitBtn = document.getElementById('submitBtn');
-      const resultBox = document.getElementById('formResult');
-
-      const errors = {
-        name: document.getElementById('nameErr'),
-        email: document.getElementById('emailErr'),
-        message: document.getElementById('messageErr')
-      };
-
-      // Simple but robust-ish email regex:
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      function clearErrors(){
-        for(const k in errors){ errors[k].textContent = ''; }
-        resultBox.style.display = 'none';
-        resultBox.textContent = '';
-        resultBox.className = 'result';
-      }
-
-      function validateName(value){
-        if(!value || !value.trim()) return 'Name is required.';
-        const v = value.trim();
-        if(v.length < 2) return 'Please enter at least 2 characters.';
-        // optional: disallow digits
-        if(/\d/.test(v)) return 'Please avoid numbers in the name.';
-        return '';
-      }
-
-      function validateEmail(value){
-        if(!value || !value.trim()) return 'Email is required.';
-        if(!emailRegex.test(value.trim())) return 'Please enter a valid email address.';
-        return '';
-      }
-
-      function validateMessage(value){
-        if(!value || !value.trim()) return 'Message is required.';
-        if(value.trim().length < 10) return 'Please enter a longer message (min 10 characters).';
-        return '';
-      }
-
-      // real-time small validation feedback (on blur)
-      nameInput.addEventListener('blur', ()=> {
-        errors.name.textContent = validateName(nameInput.value);
-      });
-      emailInput.addEventListener('blur', ()=> {
-        errors.email.textContent = validateEmail(emailInput.value);
-      });
-      messageInput.addEventListener('blur', ()=> {
-        errors.message.textContent = validateMessage(messageInput.value);
-      });
-
-      form.addEventListener('submit', function(e){
-        e.preventDefault();               // prevent actual submit
-        clearErrors();
-
-        // run validation
-        const nameErr = validateName(nameInput.value);
-        const emailErr = validateEmail(emailInput.value);
-        const messageErr = validateMessage(messageInput.value);
-
-        let hasError = false;
-        if(nameErr){ errors.name.textContent = nameErr; hasError = true; }
-        if(emailErr){ errors.email.textContent = emailErr; hasError = true; }
-        if(messageErr){ errors.message.textContent = messageErr; hasError = true; }
-
-        if(hasError){
-          resultBox.textContent = 'Please fix the errors above and try again.';
-          resultBox.className = 'result error';
-          resultBox.style.display = 'flex';
-          resultBox.focus?.();
-          return;
-        }
-
-        // If valid, show a success message (no sending)
-        const timestamp = new Date().toLocaleString();
-        resultBox.textContent = `Thanks ${nameInput.value.trim()}! Your message looks good. (Preview — ${timestamp})`;
-        resultBox.className = 'result success';
-        resultBox.style.display = 'flex';
-
-        // Reset form fields after a short delay (optional)
-        submitBtn.disabled = true;
-        setTimeout(()=> {
-          form.reset();
-          submitBtn.disabled = false;
-        }, 1200);
-      });
-
-    })();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
